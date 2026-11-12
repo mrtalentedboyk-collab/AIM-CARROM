@@ -11,10 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # এখানে আমরা বলে দিচ্ছি যে আমাদের কাজগুলো PRIME-GAME-main ফোল্ডারের ভেতর হবে
     defaults:
       run:
-        working-directory: PRIME-GAME-main
+        working-directory: AIM-CARROM-main
 
     steps:
       - name: Checkout Source Code
@@ -26,17 +25,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # গিটহাবের নিজস্ব গ্রেডল সেটআপ টুল ব্যবহার করছি
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      # সরাসরি গ্রেডল কমান্ড ব্যবহার করে বিল্ড করা হচ্ছে (gradlew এর দরকার নেই)
       - name: Build Debug APK
-        run: gradle assembleDebug --stacktrace
+        run: gradle app:assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: PRIME-GAME-Debug-APK
-          # APK ফাইলটি আপলোড করার পাথও আপডেট করা হয়েছে
-          path: PRIME-GAME-main/app/build/outputs/apk/debug/app-debug.apk
+          path: AIM-CARROM-main/app/build/outputs/apk/debug/app-debug.apk
+          
